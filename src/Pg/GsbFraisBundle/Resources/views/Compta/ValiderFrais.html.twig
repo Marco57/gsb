@@ -1,0 +1,81 @@
+{% extends "PgGsbFraisBundle::accueilCompta.html.twig" %}
+ {% block section %}
+
+<div id="contenu">
+    <h2> Validation des frais </h2>
+
+    <form method ="POST">
+        <div class="corpsForm">
+            <p>
+                <label for="lstVisiteur" accesskey="n"> Choisir le visiteur : </label>
+                <select id="lstVisiteur" name ="lstVisiteur" onChange="javascript:submit();">
+                {% for unVisiteur in lesVisiteurs  %}
+                    {% set visiteur=unVisiteur.id  %}
+                    {% set nomVisiteur=unVisiteur.nom %}
+                    {% set prenomVisiteur=unVisiteur.prenom  %}
+             {%  if visiteur == leVisiteur %} 
+                        <option selected value ="{{visiteur}}"> {{nomVisiteur}}/{{prenomVisiteur}}  </option>
+                    {% else %}
+                        <option value ="{{visiteur}}"> {{nomVisiteur}}/{{prenomVisiteur}}   </option>
+                     {% endif %}
+                {% endfor %}
+                    </select>
+                </p>
+            {% if leVisiteur is not null %}
+                <p>
+                    <label for="lstMois" accesskey="n"> Mois : </label>
+                    <select id="lstMois" name ="lstMois" onChange="javascript:submit();">
+                    {% set find = "false" %}
+                {% for unMois in lesMois  %}
+                    {% set mois=unMois.mois  %}
+                    {% set numAnnee=unMois.numAnnee  %}
+                    {% set numMois=unMois.numMois  %}
+             {%  if mois == leMois %} 
+                            <option selected value ="{{mois}}"> {{numMois}}/{{numAnnee}}  </option>
+                    {% set find = "true" %}
+                    {% else %}
+                            <option value ="{{mois}}"> {{numMois}}/{{numAnnee}}  </option>
+                     {% endif %}
+                {% endfor %}
+                    {% if find != "true" %}
+                            <option selected value =""></option>
+                    {% endif %}
+                        </select>
+                    </p>
+            {% endif %}
+                    <p>
+
+                    <div style="height: 1px; background-color: silver;
+                         margin-left: 30px; margin-right: 30px; margin-bottom: 15px;"></div>
+                         <div class="encadre"> 
+{% if lesfraisforfait is not null %}
+                                 <table style="box-shadow: 1px 1px 3px #999; border-radius: 4px; min-width: 300px;">
+                                     <caption style="font-weight: bold; text-align: left; font-size:18px;">Frais au forfait :</caption>
+                                     <tr>
+          {% for unfrais in lesfraisforfait %}
+                  {% set libelle = unfrais.libelle%}
+                                             <th style="padding:5px">{{libelle}} </th>
+                  {% endfor %}
+                                             </tr>
+                                             <tr>
+          {% for unfrais in lesfraisforfait %}
+                  {% set quantite = unfrais.quantite%}
+                                                     <td style="padding-left:6px;" >{{quantite}} </td>
+                  {% endfor %}
+                                                 </tr>	
+                                             </table>
+ {% endif %}
+                                         </div>  
+
+                                         </p>
+                                     </div>
+                                     <div class="piedForm">
+                                         </p>
+                                         <input id = "ok" class="btn btn-success btn-large" type="submit" value="Valider" name="valider" size = "20">
+                                         <input id = "annuler" class="btn btn-danger btn-large" type="reset" value="Annuler" name="annuler" size = "20"> 
+                                         </p>
+                                     </div>  
+                                     <div><a href= "{{path('pg_gsb_frais_annvaliderfrais')}}" title="Annuler validation">Annuler la validation ! (debug)</a></div>
+                                 </form> 
+
+ {% endblock %}

@@ -1,0 +1,42 @@
+{% extends "PgGsbFraisBundle::layout.html.twig" %}
+{% block body %}
+<nav>
+    <div class="row">
+        <div class="col-lg-10">
+            <nav class="navbar navbar-default" role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="{{path('pg_gsb_frais_home')}}">Acceuil</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{{path('pg_gsb_frais_saisirfrais')}}" title="Saisie fiche de frais ">Saisie fiche de frais</a>
+                            </li>
+
+                            <li>
+                                <a href= "{{path('pg_gsb_frais_listefrais')}}" title="Consultation de mes fiches de frais">Mes fiches de frais</a>
+                            </li>    
+                        </ul>
+                    </div>
+            </nav>
+        </div>
+        <div class="col-lg-2">
+            <nav class="navbar navbar-default" role="deconnexion">
+                <div class="container-fluid">
+
+        {% if (app.session.get('nom') is defined ) %}
+                    Bonjour {{ app.session.get('nom') }} <br />
+        {% endif %}
+                    <a href="{{path('pg_gsb_frais_deconnexion')}}" title="Se déconnecter">Déconnexion</a>
+                </div>
+            </nav>
+        </div>
+    </div>
+</nav> 
+<section>   
+    {% block section %}
+    {% endblock %}
+</section>
+{% endblock %}
