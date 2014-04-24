@@ -35,7 +35,7 @@ class ValiderFraisController extends Controller {
         // Si on a sélectionné un visiteur, on le renvoie dans la liste 
         // et on affiche les mois disponibles
         else if ($idVisiteur != null && $leMois == null) {
-            $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+            $lesMois = $pdo->getLesMoisValidFrais($idVisiteur);
             return $this->render('PgGsbFraisBundle:Compta:ValiderFrais.html.twig', array('lesVisiteurs' => $lesVisiteurs,
                         'leVisiteur' => $idVisiteur,
                         'lesMois' => $lesMois,
@@ -50,7 +50,7 @@ class ValiderFraisController extends Controller {
         // Si on a sélecionné un visiteur et un mois, on les renvoie dans
         // leur liste respective et on affiche la liste des frais
         else if ($idVisiteur != null && $leMois != null) {
-            $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+            $lesMois = $pdo->getLesMoisValidFrais($idVisiteur);
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
             $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);
@@ -59,8 +59,15 @@ class ValiderFraisController extends Controller {
             $nbJustificatifs = $lesInfosFicheFrais['nbJustificatifs'];
             $dateModif = $lesInfosFicheFrais['dateModif'];
             $dateModif = dateAnglaisVersFrancais($dateModif);
+           
+            $lesFrais = $request->request->get('lesFrais');
             if ($aValider == "true") {
-                $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
+              //  $pdo->majEtatFicheFrais($idVisiteur, $leMois, "VA");
+                 if (lesQteFraisValides($lesFrais)) {
+                $pdo->majFraisForfait($idVisiteur, $leMois, $lesFrais);
+            } else {
+            //    $lesErreursForfaits[] = "Les valeurs des frais doivent être numériques";
+            }
             }
             $aValider = "true";
             return $this->render('PgGsbFraisBundle:Compta:ValiderFrais.html.twig', array('lesVisiteurs' => $lesVisiteurs,
@@ -84,7 +91,7 @@ class ValiderFraisController extends Controller {
         $idVisiteur = $request->request->get('lstVisiteur');
         $leMois = $request->request->get('lstMois');
         if ($idVisiteur != null && $leMois != null) {
-            $lesMois = $pdo->getLesMoisDisponibles($idVisiteur);
+            $lesMois = $pdo->getLesMoisValidFrais($idVisiteur);
             $lesFraisHorsForfait = $pdo->getLesFraisHorsForfait($idVisiteur, $leMois);
             $lesFraisForfait = $pdo->getLesFraisForfait($idVisiteur, $leMois);
             $lesInfosFicheFrais = $pdo->getLesInfosFicheFrais($idVisiteur, $leMois);

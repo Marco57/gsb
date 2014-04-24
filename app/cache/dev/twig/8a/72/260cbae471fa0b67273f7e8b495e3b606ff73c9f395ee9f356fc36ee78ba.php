@@ -31,7 +31,7 @@ class __TwigTemplate_8a72260cbae471fa0b67273f7e8b495e3b606ff73c9f395ee9f356fc36e
         // line 3
         echo "<nav>
     <div class=\"row\">
-        <div class=\"col-lg-10\">
+        <div class=\"col-lg-9\">
             <nav class=\"navbar navbar-default\" role=\"navigation\">
                 <div class=\"container-fluid\">
                     <div class=\"navbar-header\">
@@ -60,7 +60,7 @@ class __TwigTemplate_8a72260cbae471fa0b67273f7e8b495e3b606ff73c9f395ee9f356fc36e
                     </div>
             </nav>
         </div>
-        <div class=\"col-lg-2\">
+        <div class=\"col-lg-3\">
             <nav class=\"navbar navbar-default\" role=\"deconnexion\">
                 <div class=\"container-fluid\">
 
@@ -68,13 +68,23 @@ class __TwigTemplate_8a72260cbae471fa0b67273f7e8b495e3b606ff73c9f395ee9f356fc36e
         // line 29
         if ($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "session", array(), "any", false, true), "get", array(0 => "nom"), "method", true, true)) {
             // line 30
-            echo "                    Bonjour ";
-            echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session"), "get", array(0 => "nom"), "method"), "html", null, true);
-            echo " <br />
-        ";
+            echo "                    ";
+            if ($this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : null), "session", array(), "any", false, true), "get", array(0 => "role"), "method", true, true)) {
+                // line 31
+                echo "                    <p style=\"padding-top:8px\"> Bonjour ";
+                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session"), "get", array(0 => "nom"), "method"), "html", null, true);
+                echo ",
+                        vous êtes connecté en tant que  ";
+                // line 32
+                echo twig_escape_filter($this->env, $this->getAttribute($this->getAttribute((isset($context["app"]) ? $context["app"] : $this->getContext($context, "app")), "session"), "get", array(0 => "role"), "method"), "html", null, true);
+                echo " !<p>
+                     ";
+            }
+            // line 34
+            echo "        ";
         }
-        // line 32
-        echo "                    <a href=\"";
+        // line 35
+        echo "                        <a href=\"";
         echo $this->env->getExtension('routing')->getPath("pg_gsb_frais_deconnexion");
         echo "\" title=\"Se déconnecter\">Déconnexion</a>
                 </div>
@@ -84,17 +94,17 @@ class __TwigTemplate_8a72260cbae471fa0b67273f7e8b495e3b606ff73c9f395ee9f356fc36e
 </nav> 
 <section>   
     ";
-        // line 39
+        // line 42
         $this->displayBlock('section', $context, $blocks);
-        // line 41
+        // line 44
         echo "</section>
 ";
     }
 
-    // line 39
+    // line 42
     public function block_section($context, array $blocks = array())
     {
-        // line 40
+        // line 43
         echo "    ";
     }
 
@@ -110,6 +120,6 @@ class __TwigTemplate_8a72260cbae471fa0b67273f7e8b495e3b606ff73c9f395ee9f356fc36e
 
     public function getDebugInfo()
     {
-        return array (  98 => 40,  95 => 39,  90 => 41,  88 => 39,  77 => 32,  71 => 30,  69 => 29,  56 => 19,  49 => 15,  40 => 9,  32 => 3,  29 => 2,  31 => 3,  28 => 2,);
+        return array (  108 => 43,  105 => 42,  100 => 44,  98 => 42,  87 => 35,  84 => 34,  79 => 32,  74 => 31,  71 => 30,  69 => 29,  56 => 19,  49 => 15,  40 => 9,  32 => 3,  29 => 2,);
     }
 }

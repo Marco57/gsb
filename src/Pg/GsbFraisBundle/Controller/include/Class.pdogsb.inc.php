@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Classe d'accès aux données. 
 
@@ -64,13 +65,32 @@ class PdoGsb {
         $ligne = $rs->fetch();
         return $ligne;
     }
-    
-     public function getInfosComptable($login, $mdp) {
+
+    public function getInfosComptable($login, $mdp) {
         $req = "select comptable.id as id, comptable.nom as nom, comptable.prenom as prenom from comptable 
 		where comptable.login='$login' and comptable.mdp='$mdp'";
         $rs = PdoGsb::$monPdo->query($req);
         $ligne = $rs->fetch();
         return $ligne;
+    }
+
+    /**
+     * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
+     * concernées par les deux arguments
+
+     * @param $idVisiteur 
+     * @param $mois sous la forme aaaamm
+     * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif 
+     */
+    public function getLesFraisForfait($idVisiteur, $mois) {
+        $req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle,
+		lignefraisforfait.quantite as quantite from lignefraisforfait inner join fraisforfait 
+		on fraisforfait.id = lignefraisforfait.idfraisforfait
+		where lignefraisforfait.idvisiteur ='$idVisiteur' and lignefraisforfait.mois='$mois' 
+		order by lignefraisforfait.idfraisforfait";
+        $res = PdoGsb::$monPdo->query($req);
+        $lesLignes = $res->fetchAll();
+        return $lesLignes;
     }
 
     /**
@@ -112,25 +132,6 @@ class PdoGsb {
     }
 
     /**
-     * Retourne sous forme d'un tableau associatif toutes les lignes de frais au forfait
-     * concernées par les deux arguments
-
-     * @param $idVisiteur 
-     * @param $mois sous la forme aaaamm
-     * @return l'id, le libelle et la quantité sous la forme d'un tableau associatif 
-     */
-    public function getLesFraisForfait($idVisiteur, $mois) {
-        $req = "select fraisforfait.id as idfrais, fraisforfait.libelle as libelle, 
-		lignefraisforfait.quantite as quantite from lignefraisforfait inner join fraisforfait 
-		on fraisforfait.id = lignefraisforfait.idfraisforfait
-		where lignefraisforfait.idvisiteur ='$idVisiteur' and lignefraisforfait.mois='$mois' 
-		order by lignefraisforfait.idfraisforfait";
-        $res = PdoGsb::$monPdo->query($req);
-        $lesLignes = $res->fetchAll();
-        return $lesLignes;
-    }
-
-    /**
      * Retourne tous les id de la table FraisForfait
 
      * @return un tableau associatif 
@@ -155,12 +156,17 @@ class PdoGsb {
      */
     public function majFraisForfait($idVisiteur, $mois, $lesFrais) {
         $lesCles = array_keys($lesFrais);
-        foreach ($lesCles as $unIdFrais) {
-            $qte = $lesFrais[$unIdFrais];
-            $req = "update lignefraisforfait set lignefraisforfait.quantite = $qte
+        try {
+            foreach ($lesCles as $unIdFrais) {
+                $qte = $lesFrais[$unIdFrais];
+                $req = "update lignefraisforfait set lignefraisforfait.quantite = $qte
 			where lignefraisforfait.idvisiteur = '$idVisiteur' and lignefraisforfait.mois = '$mois'
 			and lignefraisforfait.idfraisforfait = '$unIdFrais'";
-            PdoGsb::$monPdo->exec($req);
+                PdoGsb::$monPdo->exec($req);
+            }
+            echo "BOnjour ta fonction ne fonctionne pas !";
+        } catch (Exception $e) {
+            throw $e;
         }
     }
 
@@ -337,18 +343,38 @@ class PdoGsb {
         $ligne = $stmt->fetch();
         return $ligne['nb'];
     }
-    
+
     // ################ Fonctions validation des frais ################  
-    
-    public function getLesVisiteurs()
-    {
+
+    public function getLesVisiteurs() {
         $req = 'SELECT id, nom, prenom, adresse, cp, ville, dateEmbauche
             FROM visiteur';
         $res = PdoGsb::$monPdo->query($req);
         $lesLignes = $res->fetchAll();
         return $lesLignes;
     }
-    
+
+    public function getLesMoisValidFrais($idVisiteur) {
+        $req = "select fichefrais.mois as mois from  fichefrais where fichefrais.idvisiteur ='$idVisiteur' 
+		and (idEtat = 'CL' OR idEtat = 'VA')  order by fichefrais.mois desc ";
+        $res = PdoGsb::$monPdo->query($req);
+        $lesMois = array();
+        $laLigne = $res->fetch();
+        while ($laLigne != null) {
+            $mois = $laLigne['mois'];
+            $numAnnee = substr($mois, 0, 4);
+            $numMois = substr($mois, 4, 2);
+            $lesMois["$mois"] = array(
+                "mois" => "$mois",
+                "numAnnee" => "$numAnnee",
+                "numMois" => "$numMois"
+            );
+            $laLigne = $res->fetch();
+        }
+        return $lesMois;
+    }
+
     // ############## Fin Fonctions validation des frais ##############
 }
+
 ?>
