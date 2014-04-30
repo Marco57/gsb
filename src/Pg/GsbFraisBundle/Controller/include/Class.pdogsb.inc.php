@@ -356,6 +356,11 @@ class PdoGsb {
     public function getLesMoisValidFrais($idVisiteur) {
         $req = "select fichefrais.mois as mois from  fichefrais where fichefrais.idvisiteur ='$idVisiteur' 
 		and (idEtat = 'CL' OR idEtat = 'VA')  order by fichefrais.mois desc ";
+//          Requête de debug: affiche aussi les frais validés
+        
+        
+         // $req = "select fichefrais.mois as mois from  fichefrais where fichefrais.idvisiteur ='$idVisiteur' 
+	//	and idEtat = 'CL' order by fichefrais.mois desc ";
         $res = PdoGsb::$monPdo->query($req);
         $lesMois = array();
         $laLigne = $res->fetch();
@@ -386,7 +391,7 @@ class PdoGsb {
                 
                 if($etat == 'SU')
                 {
-                    supprimerFraisHorsForfait($id);
+                    $this->supprimerFraisHorsForfait($id);
                 }
                 else if($etat == 'RE')
                 {
