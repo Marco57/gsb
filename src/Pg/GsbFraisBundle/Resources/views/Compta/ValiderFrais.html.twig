@@ -3,12 +3,13 @@
 
 <div id="contenu">
     <h2> Validation des frais </h2>
-
+ <label style="text-align:center; width:100%; font-size:20px"> {{libValid}} </label>
     <form method ="POST">
         <div class="corpsForm">
+            {% if leVisiteur is null or leMois is null %} 
             <p>
                 <label for="lstVisiteur" accesskey="n"> Choisir le visiteur : </label>
-                <select id="lstVisiteur" name ="lstVisiteur" onChange="javascript:submit();">
+                <select id="lstVisiteur" name ="lstVisiteur" onChange="javascript:submit(); this.enable = false;">
                      {% set findVisiteur = "false" %}
                 {% for unVisiteur in lesVisiteurs  %}
                          {% if findVisiteur != "true" %}
@@ -29,6 +30,7 @@
                 {% endfor %}
                     </select>
                 </p>
+                
             {% if leVisiteur is not null %}
                 <p>
                     <label for="lstMois" accesskey="n"> Mois : </label>
@@ -53,6 +55,11 @@
                         </select>
                     </p>
             {% endif %}
+                    {% else %} 
+                    <input type="text" style="display:none" id="txtVisiteur" name="lstVisiteur" size="8" maxlength="256" value="{{leVisiteur}}" readonly>
+                    <input type="text" style="display:none" id="txtMois" name="lstMois" size="8" maxlength="256" value="{{leMois}}" readonly>
+                     <a href="{{path('pg_gsb_frais_validerfrais')}}" title="Choisir un autre visiteur">Choisir un autre visiteur</a>
+         {% endif %} 
                     <p>
 
                     <div style="height: 1px; background-color: silver;
@@ -91,22 +98,26 @@
                                                              <th style="padding:5px">Montant</th>
                                                              <th style="padding:5px">Situation</th> 
                                                          </tr> 
+                                                         {% set i = 0 %}
                                                 {% for unfrais in lesfraishorsforfait %}
+                                                      {% set id = unfrais.id %}
                                                       {% set date = unfrais.date %}
                                                       {% set libelle = unfrais.libelle%}
                                                       {% set montant = unfrais.montant%}
                                                          <tr>
-                                                             <td style="padding:5px"><input type="text" id="txtDateHF" name="txtDateHF" size="8" maxlength="256" value="{{date}}"></td>
-                                                             <td style="padding:5px"><input type="text" id="txtLibelleHF" name="txtLibelleHF" size="36" maxlength="256" value="{{libelle}}"></td>
-                                                             <td style="padding:5px"><input type="text" id="txtMontantHF" name="txtMontantHF" size="8" maxlength="256" value="{{montant}}"></td>
+                                                             <td style="padding:5px"><input type="text" style="display:none" id="txtIdHF" name="lesHF[{{i}}][0]" size="8" maxlength="256" value="{{id}}" readonly>                                                                   
+                                                                 <input type="text" id="txtDateHF" name="lesHF[{{i}}][1]" size="8" maxlength="256" value="{{date}}"></td>
+                                                             <td style="padding:5px"><input type="text" id="txtLibelleHF" name="lesHF[{{i}}][2]" size="36" maxlength="256" value="{{libelle}}"></td>
+                                                             <td style="padding:5px"><input type="text" id="txtMontantHF" name="lesHF[{{i}}][3]" size="8" maxlength="256" value="{{montant}}"></td>
                                                              <td style="padding:5px">
-                                                                 <select id="lstSitHF" name ="lstSitHF">
-                                                                     <option value ="CL">Enregistré</option>
+                                                                 <select id="lstSitHF" name ="lesHF[{{i}}][4]">
                                                                      <option value ="VA">Validé</option>
-                                                                     <option value ="RB">Remboursé</option>
+                                                                     <option value ="RE">Refusé</option>
+                                                                     <option value ="SU">Supprimé</option>
                                                                  </select>
                                                              </td>
                                                          </tr>
+                                                         {% set i = i + 1 %}
                                                      {% endfor %}
                                                  </table>
 
@@ -114,6 +125,7 @@
                                        {% endif %}
 
                                              </p>
+                                        
                                          </div>
                                          <div class="piedForm">
                                              </p>

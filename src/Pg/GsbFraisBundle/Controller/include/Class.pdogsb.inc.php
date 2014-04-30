@@ -164,7 +164,6 @@ class PdoGsb {
 			and lignefraisforfait.idfraisforfait = '$unIdFrais'";
                 PdoGsb::$monPdo->exec($req);
             }
-            echo "BOnjour ta fonction ne fonctionne pas !";
         } catch (Exception $e) {
             throw $e;
         }
@@ -372,6 +371,46 @@ class PdoGsb {
             $laLigne = $res->fetch();
         }
         return $lesMois;
+    }
+    
+    public function validerLesFraisHorsForfait($idVisiteur, $mois, $lesHF)
+    {
+         $lesLignes = $lesHF;
+        try {
+            for($i = 0; $i<count($lesLignes); $i++){
+                $id = $lesLignes[$i][0];
+                $date = $lesLignes[$i][1];
+                $libelle = $lesLignes[$i][2];
+                $montant = $lesLignes[$i][3];
+                $etat = $lesLignes[$i][4];
+                
+                if($etat == 'SU')
+                {
+                    supprimerFraisHorsForfait($id);
+                }
+                else if($etat == 'RE')
+                {
+                    $libRefuse = 'Refusé - '.$libelle;
+                    $this->majFraisHorsForfait($id, $date, $libRefuse, $montant);
+                }
+                else if($etat == 'VA')
+                {
+                    $this->majFraisHorsForfait($id, $date, $libelle, $montant);
+                }
+            }
+        }
+        catch(Exeption $e)
+        {
+            throw $e;
+        }
+    }
+    
+    public function majFraisHorsForfait($id, $date, $libelle, $montant)
+    {
+        $dateFR = dateFrancaisVersAnglais($date);
+         $req = "update lignefraishorsforfait set date = '$dateFR', libelle = '$libelle',
+             montant = '$montant' where id = '$id'";
+        PdoGsb::$monPdo->exec($req);
     }
 
     // ############## Fin Fonctions validation des frais ##############

@@ -61,7 +61,7 @@ class __TwigTemplate_8a72260cbae471fa0b67273f7e8b495e3b606ff73c9f395ee9f356fc36e
             </nav>
         </div>
         <div class=\"col-lg-3\">
-            <nav class=\"navbar navbar-default\" role=\"deconnexion\">
+            <nav class=\"navbar navbar-default\" role=\"deconnexion\" style=\"margin-bottom: 0px;\">
                 <div class=\"container-fluid\">
 
         ";

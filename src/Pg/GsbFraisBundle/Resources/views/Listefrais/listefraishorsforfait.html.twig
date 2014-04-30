@@ -1,18 +1,18 @@
-<table class="listeLegere">
-    <caption>Descriptif des éléments hors forfait - {{nbjustificatifs}} - justificatifs reçus </caption>
+<table style="box-shadow: 1px 1px 3px #999; border-radius: 4px; min-width: 400px; margin-bottom: 30px">
+    <caption style="font-weight: bold; text-align: left;">Descriptif des éléments hors forfait - {{nbjustificatifs}} - justificatifs reçus </caption>
     <tr>
-        <th class ="date">Date</th>
-        <th class ="libelle">Libellé</th>
-        <th class ="montant">Montant</th>
+        <th style="padding:5px">Date</th>
+        <th style="padding:5px">Libellé</th>
+        <th style="padding:5px">Montant</th>
     </tr> 
           {% for unfrais in lesfraishorsforfait %}
                 {% set date = unfrais.date %}
                 {% set libelle = unfrais.libelle%}
                 {% set montant = unfrais.montant%}
                 <tr>
-                    <td> {{date}}</td>
-                    <td> {{libelle}}</td>
-                    <td> {{montant}}</td>
+                    <td style="padding:0px 40px 5px 5px"> {{date}}</td>
+                    <td style="padding:0px 40px 5px 5px"> {{libelle}}</td>
+                    <td style="padding:0px 10px 5px 5px"> {{montant}}</td>
                 </tr>
           {% endfor %}
 </table>

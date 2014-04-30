@@ -33,19 +33,21 @@ class __TwigTemplate_911a44911ca82f4d08f4e6483b6e5f29c13fc4f015219a05cb4ee122c78
         echo "
     </p>
 
-    <table class=\"listeLegere\">
-        <caption>Eléments forfaitisés</caption>
+     
+    
+    <table style=\"box-shadow: 1px 1px 3px #999; border-radius: 4px; min-width: 300px; margin-bottom: 30px\">
+        <caption style=\"font-weight: bold; text-align: left; font-size:18px;\">Eléments forfaitisés</caption>
         <tr>
           ";
-        // line 10
+        // line 12
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["lesfraisforfait"]) ? $context["lesfraisforfait"] : $this->getContext($context, "lesfraisforfait")));
         foreach ($context['_seq'] as $context["_key"] => $context["unfrais"]) {
-            // line 11
+            // line 13
             echo "                  ";
             $context["libelle"] = $this->getAttribute((isset($context["unfrais"]) ? $context["unfrais"] : $this->getContext($context, "unfrais")), "libelle");
-            // line 12
-            echo "                <th>";
+            // line 14
+            echo "                <th style=\"padding:5px\">";
             echo twig_escape_filter($this->env, (isset($context["libelle"]) ? $context["libelle"] : $this->getContext($context, "libelle")), "html", null, true);
             echo " </th>
                   ";
@@ -53,19 +55,19 @@ class __TwigTemplate_911a44911ca82f4d08f4e6483b6e5f29c13fc4f015219a05cb4ee122c78
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['unfrais'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 14
+        // line 16
         echo "        </tr>
         <tr>
           ";
-        // line 16
+        // line 18
         $context['_parent'] = (array) $context;
         $context['_seq'] = twig_ensure_traversable((isset($context["lesfraisforfait"]) ? $context["lesfraisforfait"] : $this->getContext($context, "lesfraisforfait")));
         foreach ($context['_seq'] as $context["_key"] => $context["unfrais"]) {
-            // line 17
+            // line 19
             echo "                  ";
             $context["quantite"] = $this->getAttribute((isset($context["unfrais"]) ? $context["unfrais"] : $this->getContext($context, "unfrais")), "quantite");
-            // line 18
-            echo "                        <td class = qteForfait >";
+            // line 20
+            echo "                        <td style=\"padding:0px 5px 5px 5px\" >";
             echo twig_escape_filter($this->env, (isset($context["quantite"]) ? $context["quantite"] : $this->getContext($context, "quantite")), "html", null, true);
             echo " </td>
                   ";
@@ -73,7 +75,7 @@ class __TwigTemplate_911a44911ca82f4d08f4e6483b6e5f29c13fc4f015219a05cb4ee122c78
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['unfrais'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 20
+        // line 22
         echo "       </tr>\t
     </table>
 </div>
@@ -92,6 +94,6 @@ class __TwigTemplate_911a44911ca82f4d08f4e6483b6e5f29c13fc4f015219a05cb4ee122c78
 
     public function getDebugInfo()
     {
-        return array (  65 => 17,  61 => 16,  48 => 12,  45 => 11,  41 => 10,  28 => 4,  93 => 23,  87 => 22,  77 => 20,  68 => 18,  63 => 17,  60 => 16,  57 => 14,  54 => 14,  50 => 13,  39 => 4,  32 => 3,  29 => 2,  23 => 4,  21 => 2,  19 => 1,);
+        return array (  79 => 22,  70 => 20,  67 => 19,  63 => 18,  59 => 16,  50 => 14,  47 => 13,  43 => 12,  28 => 4,  19 => 1,);
     }
 }

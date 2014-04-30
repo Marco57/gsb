@@ -34,33 +34,36 @@ class __TwigTemplate_65e7591f7cec755aa9be2106429727ccf6ef2b23fba4dd81e0d3b4f274a
         // line 5
         if (array_key_exists("message", $context)) {
             // line 6
-            echo "    <div class = \"erreur\">
-        <ul>  ";
+            echo "        <div class = \"erreur\">
+            <ul>  ";
             // line 7
             echo twig_escape_filter($this->env, (isset($context["message"]) ? $context["message"] : $this->getContext($context, "message")), "html", null, true);
             echo "  </ul> </div>
     ";
         }
         // line 9
-        echo "    <form method=\"POST\" action=\"";
+        echo "        <form method=\"POST\" action=\"";
         echo $this->env->getExtension('routing')->getPath("pg_gsb_frais_validerconnexion");
         echo "\">
-        <div class=\"row\">
-            <div class=\"col-lg-12 col-md-6\">
-                <label for=\"nom\">Login*</label>
-                <input id=\"login\" type=\"text\" name=\"login\"  size=\"30\" maxlength=\"45\">
+            <div class=\"row\">
+                <h3 style=\"text-align: center; font-weight: bold\">Connexion</h2>
+                    <div>
+                        <div style=\"margin:auto; width: 300px;\">
+                            <label for=\"nom\" style=\"width: 110px\">Login :</label>
+                            <input id=\"login\" type=\"text\" name=\"login\"  size=\"20\" maxlength=\"45\"><br/>
+                            <label for=\"mdp\" style=\"width: 110px\">Mot de passe :</label>
+                            <input id=\"mdp\"  type=\"password\"  name=\"mdp\" size=\"20\" maxlength=\"45\"><br/>
+                            <div style=\"text-align: center\">
+                                <input style=\"margin-left:auto\" type=\"submit\" class=\"btn-primary\" value=\"Valider\" name=\"valider\">
+                                <input type=\"reset\" class=\"btn-primary\" value=\"Annuler\" name=\"annuler\">
+                            </div>
+                        </div>
+                    </div> 
             </div> 
-            <div class=\"col-lg-12 col-md-6\">
-                <label for=\"mdp\">Mot de passe*</label>
-                <input id=\"mdp\"  type=\"password\"  name=\"mdp\" size=\"30\" maxlength=\"45\">
-            </div> 
-            <div class=\"col-lg-12 col-md-6\">
-                <input type=\"submit\" class=\"btn-primary\" value=\"Valider\" name=\"valider\">
-                <input type=\"reset\" class=\"btn-primary\" value=\"Annuler\" name=\"annuler\">
-            </div>
-        </div> 
-    </form>
-</div>
+                <br/>
+                <br/>
+        </form>
+    </div>
 
 ";
     }

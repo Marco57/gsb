@@ -31,7 +31,7 @@ class __TwigTemplate_4452788b1772daebceaad6d939c4e4529a82d8d8c19c21a9d6df25d2c6a
         // line 3
         echo "<nav>
     <div class=\"row\">
-        <div class=\"col-lg-10\">
+        <div class=\"col-lg-9\">
             <nav class=\"navbar navbar-default\" role=\"navigation\">
                 <div class=\"container-fluid\">
                     <div class=\"navbar-header\">
@@ -61,8 +61,8 @@ class __TwigTemplate_4452788b1772daebceaad6d939c4e4529a82d8d8c19c21a9d6df25d2c6a
                 </div>
             </nav>
         </div>
-        <div class=\"col-lg-2\">
-            <nav class=\"navbar navbar-default\" role=\"deconnexion\">
+        <div class=\"col-lg-3\">
+            <nav class=\"navbar navbar-default\" role=\"deconnexion\" style=\"margin-bottom: 0px;\">
                 <div class=\"container-fluid\">
 
         ";

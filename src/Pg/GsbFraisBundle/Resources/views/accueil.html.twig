@@ -2,7 +2,7 @@
 {% block body %}
 <nav>
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-9">
             <nav class="navbar navbar-default" role="navigation">
                 <div class="container-fluid">
                     <div class="navbar-header">
@@ -23,8 +23,8 @@
                 </div>
             </nav>
         </div>
-        <div class="col-lg-2">
-            <nav class="navbar navbar-default" role="deconnexion">
+        <div class="col-lg-3">
+            <nav class="navbar navbar-default" role="deconnexion" style="margin-bottom: 0px;">
                 <div class="container-fluid">
 
         {% if (app.session.get('nom') is defined ) %}
